@@ -9,18 +9,6 @@ const R = (function () {
         callback();
         deps = depArray;
       }
-
-      // const hasNoDeps = !depArray;
-      // const deps = hookValues[useStateIndex]; // type: array | undefined
-      // const hasChangedDeps = deps
-      //   ? !depArray.every((el, i) => el === deps[i])
-      //   : true;
-      // if (hasNoDeps || hasChangedDeps) {
-      //   callback();
-      //   useStateIndex = -1;
-      //   hookValues[useStateIndex] = depArray[useStateIndex];
-      // }
-      // useStateIndex++; // done with this hook
     },
     useState(initialValue) {
       useStateIndex++;
