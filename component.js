@@ -1,5 +1,5 @@
-// import App from "./components/app.js";
-import Counter from "./components/counter.js";
+import App from "./components/app.js";
+// import Counter from "./components/counter.js";
 import { Props } from "./types.js";
 
 /**
@@ -30,7 +30,7 @@ function Component(props) {
     props.eventListeners.forEach((eventListener) => {
       element.addEventListener(eventListener.type, function (e) {
         eventListener.listener(e);
-        document.body.replaceChildren(Counter());
+        document.body.replaceChildren(App());
       });
     });
   }

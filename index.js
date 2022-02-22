@@ -1,4 +1,4 @@
-// import App from "./components/app.js";
-import Counter from "./components/counter.js";
+import App from "./components/app.js";
+// import Counter from "./components/counter.js";
 
-document.body.appendChild(Counter());
+document.body.appendChild(App());

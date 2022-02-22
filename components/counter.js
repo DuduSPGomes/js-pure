@@ -2,6 +2,9 @@ import Component from "../component.js";
 import R from "../R.js";
 import Paragraph from "./paragraph.js";
 import SendButton from "./send-button.js";
+import { reducer } from "../context/reducer.js";
+import { initialState } from "../context/initial-state.js";
+import { setCounter } from "../context/actions.js";
 
 function Counter() {
   const [counter, setCounter] = R.useState(0);
@@ -9,7 +12,7 @@ function Counter() {
   const [counter2, setCounter2] = R.useState(0);
 
   R.useEffect(() => {
-    console.log("render");
+    console.log("rendered");
   }, [counter2, counter3]);
 
   return Component({
