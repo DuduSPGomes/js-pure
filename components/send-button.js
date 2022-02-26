@@ -10,7 +10,6 @@ function SendButton(props) {
 
   function listener(e) {
     context.dispatch(setCounter());
-    R.renderDOM(Counter(), document.body);
     // props.setCounter((old) => old + 1);
   }
 

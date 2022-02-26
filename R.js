@@ -1,21 +1,18 @@
 const R = (function () {
+  let render;
   let stateValues = []; // useState
   let useStateIndex = -1; // useState
   let deps = []; // useEffect
   let reducerState; // useReducer
   let context; // createContext | useContext
-  let childWithContext;
+  let childWithContext; // Provider children
 
   return {
     createContext(defaultValue) {
       context = context || defaultValue;
 
-      console.log("createContext");
-
       function Provider(children, value) {
         context = context || value;
-
-        console.log("Provider");
 
         if (children) {
           children.forEach((child) => {
@@ -27,20 +24,16 @@ const R = (function () {
       }
 
       function Consumer() {
-        console.log("Consumer");
         return context;
       }
 
       return { Provider, Consumer };
     },
     useContext(createdContext) {
-      console.log("useContext");
       return createdContext.Consumer();
     },
     useReducer(reducer, initialState) {
       reducerState = reducerState || initialState;
-
-      console.log("useReducer");
 
       function dispatch(action) {
         reducerState = reducer(reducerState, action);
@@ -97,14 +90,17 @@ const R = (function () {
         props.eventListeners.forEach((eventListener) => {
           element.addEventListener(eventListener.type, function (e) {
             eventListener.listener(e);
+            const p = render.Provider({ children: [render.Component] });
+            render.target.replaceChildren(p);
           });
         });
       }
 
       return element;
     },
-    renderDOM(elem, target) {
-      target.replaceChildren(elem);
+    renderDOM(Component, target, Provider) {
+      target.replaceChildren(Provider({ children: [Component] }));
+      render = { Component: Component, target: target, Provider: Provider };
     },
   };
 })();
