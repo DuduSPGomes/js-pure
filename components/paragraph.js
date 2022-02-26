@@ -1,7 +1,10 @@
-import Component from "../component.js";
+import R from "../R.js";
+import { CounterContext } from "../context/index.js";
 
 function Paragraph(props) {
-  return Component({ tagName: "p", textContent: props.textContent });
+  const context = R.useContext(CounterContext);
+
+  return R.Component({ tagName: "p", textContent: context?.state?.counter });
 }
 
 export default Paragraph;

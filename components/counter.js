@@ -1,30 +1,20 @@
-import Component from "../component.js";
 import R from "../R.js";
 import Paragraph from "./paragraph.js";
 import SendButton from "./send-button.js";
-import { reducer } from "../context/reducer.js";
-import { initialState } from "../context/initial-state.js";
-import { setCounter } from "../context/actions.js";
+import { CounterContext } from "../context/index.js";
+import CounterProvider from "../context/index.js";
 
 function Counter() {
   const [counter, setCounter] = R.useState(0);
-  const [counter3, setCounter3] = R.useState(1);
-  const [counter2, setCounter2] = R.useState(0);
 
   R.useEffect(() => {
     console.log("rendered");
-  }, [counter2, counter3]);
+  }, [counter]);
 
-  return Component({
+  return R.Component({
     tagName: "div",
-    children: [
-      Paragraph({ textContent: counter }),
-      SendButton({ setCounter: setCounter }),
-      Paragraph({ textContent: counter2 }),
-      SendButton({ setCounter: setCounter2 }),
-      Paragraph({ textContent: counter3 }),
-      SendButton({ setCounter: setCounter3 }),
-    ],
+    attributes: { id: "counter" },
+    children: [Paragraph(), SendButton()],
   });
 }
 

@@ -1,33 +1,53 @@
 const R = (function () {
-  let hookValues = [];
-  let useStateIndex = -1;
-  let deps = [];
-  let state;
-  let context;
+  let stateValues = []; // useState
+  let useStateIndex = -1; // useState
+  let deps = []; // useEffect
+  let reducerState; // useReducer
+  let context; // createContext | useContext
+  let childWithContext;
 
   return {
     createContext(defaultValue) {
-      context = defaultValue;
-      function Provider(children, value) {
-        context = value;
-      }
+      context = context || defaultValue;
+
       console.log("createContext");
-      return { Provider };
+
+      function Provider(children, value) {
+        context = context || value;
+
+        console.log("Provider");
+
+        if (children) {
+          children.forEach((child) => {
+            if (child) childWithContext = child();
+          });
+        }
+
+        return childWithContext;
+      }
+
+      function Consumer() {
+        console.log("Consumer");
+        return context;
+      }
+
+      return { Provider, Consumer };
     },
     useContext(createdContext) {
       console.log("useContext");
-      return context;
+      return createdContext.Consumer();
     },
     useReducer(reducer, initialState) {
-      state = state || initialState;
-
-      function dispatch(action) {
-        state = reducer(state, action);
-      }
+      reducerState = reducerState || initialState;
 
       console.log("useReducer");
 
-      return [state, dispatch];
+      function dispatch(action) {
+        reducerState = reducer(reducerState, action);
+        context = { ...context, state: reducerState };
+      }
+
+      return [reducerState, dispatch];
     },
     useEffect(callback, depArray) {
       if (JSON.stringify(deps) !== JSON.stringify(depArray)) {
@@ -38,21 +58,53 @@ const R = (function () {
     useState(initialValue) {
       useStateIndex++;
 
-      hookValues[useStateIndex] = hookValues[useStateIndex] || initialValue;
+      stateValues[useStateIndex] = stateValues[useStateIndex] || initialValue;
 
       const setStateIndex = useStateIndex; // setState closure
 
       function setState(newState) {
         if (typeof newState === "function") {
-          hookValues[setStateIndex] = newState(hookValues[setStateIndex]);
+          stateValues[setStateIndex] = newState(stateValues[setStateIndex]);
           useStateIndex = -1;
         } else {
-          hookValues[setStateIndex] = newState;
+          stateValues[setStateIndex] = newState;
           useStateIndex = -1;
         }
       }
 
-      return [hookValues[useStateIndex], setState];
+      return [stateValues[useStateIndex], setState];
+    },
+    Component(props) {
+      /** @type {HTMLElement} */
+      const element = document.createElement(props.tagName);
+
+      if (props.attributes) {
+        const attrKeys = Object.keys(props.attributes);
+        attrKeys.forEach((key) => {
+          element.setAttribute(key, props.attributes[key]);
+        });
+      }
+
+      element.textContent = props.textContent;
+
+      if (props.children) {
+        props.children.forEach((child) => {
+          if (child) element.appendChild(child);
+        });
+      }
+
+      if (props.eventListeners) {
+        props.eventListeners.forEach((eventListener) => {
+          element.addEventListener(eventListener.type, function (e) {
+            eventListener.listener(e);
+          });
+        });
+      }
+
+      return element;
+    },
+    renderDOM(elem, target) {
+      target.replaceChildren(elem);
     },
   };
 })();
