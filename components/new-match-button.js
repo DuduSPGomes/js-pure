@@ -1,7 +1,7 @@
-import Component from "../component.js";
+import R from "../R.js";
 
 function NewMatchButton() {
-  return Component({
+  return R.Component({
     tagName: "button",
     textContent: "NOVA PARTIDA",
   });

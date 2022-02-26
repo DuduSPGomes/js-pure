@@ -1,8 +1,8 @@
-import Component from "../component.js";
+import R from "../R.js";
 import Heading from "./heading.js";
 
 function Header() {
-  return Component({
+  return R.Component({
     tagName: "header",
     children: [Heading()],
   });

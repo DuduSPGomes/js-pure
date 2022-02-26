@@ -1,7 +1,7 @@
-import Component from "../component.js";
+import R from "../R.js";
 
 function Input() {
-  return Component({
+  return R.Component({
     tagName: "input",
     attributes: { type: "number" },
   });

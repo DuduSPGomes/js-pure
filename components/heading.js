@@ -1,7 +1,7 @@
-import Component from "../component.js";
+import R from "../R.js";
 
 function Heading() {
-  return Component({
+  return R.Component({
     tagName: "h1",
     textContent: "Qual é o número?",
   });

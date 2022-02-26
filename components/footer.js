@@ -1,9 +1,9 @@
-import Component from "../component.js";
+import R from "../R.js";
 import Input from "./input.js";
 import SendButton from "./send-button.js";
 
 function Footer() {
-  return Component({
+  return R.Component({
     tagName: "footer",
     children: [Input(), SendButton()],
   });

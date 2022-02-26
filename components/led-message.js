@@ -1,7 +1,7 @@
-import Component from "../component.js";
+import R from "../R.js";
 
 function LedMessage() {
-  return Component({
+  return R.Component({
     tagName: "p",
     textContent: "É menor",
   });
