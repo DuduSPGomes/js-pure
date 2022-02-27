@@ -3,4 +3,4 @@ import Counter from "./components/counter.js";
 import CounterProvider from "./context/index.js";
 import App from "./components/app.js";
 
-R.renderDOM(Counter, document.body, CounterProvider);
+R.renderDOM(App, document.body, CounterProvider);

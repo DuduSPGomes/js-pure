@@ -5,11 +5,10 @@ import { initialState } from "../context/initial-state.js";
 
 function Led() {
   const context = R.useContext(CounterContext);
-  const [state, dispatch] = R.useReducer(reducer, initialState);
 
   return R.Component({
     tagName: "div",
-    textContent: state.counter,
+    textContent: context.state.inputValue,
   });
 }
 
