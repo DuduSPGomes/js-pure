@@ -1,4 +1,4 @@
-import { Props } from "./types.js";
+import { Context, Props } from "./types.js";
 
 const R = (function () {
   let stateValues = []; // useState
@@ -42,9 +42,12 @@ const R = (function () {
 
       return { Provider, Consumer };
     },
+
+    /** @returns {Context} */
     useContext(createdContext) {
       return createdContext.Consumer();
     },
+
     useReducer(reducer, initialState) {
       reducerState = reducerState || initialState;
 
@@ -62,12 +65,18 @@ const R = (function () {
 
       return [reducerState, dispatch];
     },
+
+    /**
+     * @param {Function} callback
+     * @param {Array} depArray
+     */
     useEffect(callback, depArray) {
       if (JSON.stringify(deps) !== JSON.stringify(depArray)) {
         callback();
         deps = depArray;
       }
     },
+
     useState(initialValue) {
       useStateIndex++;
 
@@ -87,7 +96,11 @@ const R = (function () {
 
       return [stateValues[useStateIndex], setState];
     },
-    /** @param {Props} props */
+
+    /**
+     * @param {Props} props
+     * @returns {HTMLElement} HTMLElement
+     */
     Component(props) {
       const element = document.createElement(props.tagName);
 
@@ -117,6 +130,12 @@ const R = (function () {
 
       return element;
     },
+
+    /**
+     * @param {Function} Component
+     * @param {HTMLElement} target
+     * @param {Function} Provider
+     */
     renderDOM(Component, target, Provider) {
       target.replaceChildren(Provider({ children: [Component] }));
       render = { Component: Component, target: target, Provider: Provider };

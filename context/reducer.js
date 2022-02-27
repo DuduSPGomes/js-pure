@@ -1,5 +1,11 @@
 import * as type from "./types.js";
+import { InitialState, Action } from "../types.js";
 
+/**
+ * @param {InitialState} state
+ * @param {Action} action
+ * @returns {Object} new state
+ */
 export function reducer(state, action) {
   switch (action.type) {
     case type.SET_COUNTER:

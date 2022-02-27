@@ -1,27 +1,49 @@
-const Attributes = {
-  /** @type {string} */
-  attribute: null,
-};
+/**
+ * @typedef {{
+ *    attribute: string
+ * }}
+ */
+const Attributes;
 
-/** @param {Event} e */
-const Listener = function (e) {};
+/** 
+ * @typedef {{
+ *    type: string,
+ *    listener: function(Event)
+ * }}
+ */
+const EventListeners;
 
-const EventListeners = {
-  /** @type {string} */
-  type: null,
-  /** @type {Listener} */
-  listener: null,
-};
+/** 
+ * @typedef {{
+ *    tagName: !string,
+ *    attributes: Array<Attributes>,
+ *    textContent: string,
+ *    children: Array<HTMLElement>,
+ *    eventListeners: Array<EventListeners>
+ * }} 
+ */
+export const Props;
 
-export const Props = {
-  /** @type {!string} */
-  tagName: null,
-  /** @type {Array<typeof Attributes>} */
-  attributes: null,
-  /** @type {string} */
-  textContent: null,
-  /** @type {Array<HTMLElement>} */
-  children: null,
-  /** @type {Array<typeof EventListeners>} */
-  eventListeners: null,
-};
+/**
+ * @typedef {{
+ *    type: string,
+ *    payload: any
+ * }}
+ */
+export const Action;
+
+/**
+ * @typedef {{
+ *    state: InitialState,
+ *    dispatch: function(Action)
+ * }}
+ */
+export const Context;
+
+/**
+ * @typedef {{
+ *    counter: number,
+ *    inputValue: number
+ * }}
+ */
+export const InitialState;

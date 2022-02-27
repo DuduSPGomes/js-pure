@@ -1,5 +1,10 @@
 import * as type from "./types.js";
+import { Action } from "../types.js";
 
+/**
+ * @param {string} value
+ * @returns {Action} type and payload
+ */
 export function setInputValue(value) {
   return { type: type.SET_INPUT_VALUE, payload: value };
 }
