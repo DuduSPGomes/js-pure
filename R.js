@@ -1,11 +1,22 @@
 const R = (function () {
-  let render;
   let stateValues = []; // useState
   let useStateIndex = -1; // useState
   let deps = []; // useEffect
   let reducerState; // useReducer
   let context; // createContext | useContext
   let childWithContext; // Provider children
+  let render;
+  function reRender(Component) {
+    return function (target) {
+      return function (Provider) {
+        if (Provider) {
+          target.replaceChildren(Provider({ children: [Component] }));
+        } else {
+          target.replaceChilren(Component());
+        }
+      };
+    };
+  }
 
   return {
     createContext(defaultValue) {
@@ -37,7 +48,13 @@ const R = (function () {
 
       function dispatch(action) {
         reducerState = reducer(reducerState, action);
-        context = { ...context, state: reducerState };
+        const newContext = { ...context, state: reducerState };
+        context = newContext;
+
+        // if (!Object.is(context, newContext)) {
+        //   context = newContext;
+        //   reRender(render.Component)(render.target)(render.Provider);
+        // }
       }
 
       return [reducerState, dispatch];
@@ -90,8 +107,7 @@ const R = (function () {
         props.eventListeners.forEach((eventListener) => {
           element.addEventListener(eventListener.type, function (e) {
             eventListener.listener(e);
-            const p = render.Provider({ children: [render.Component] });
-            render.target.replaceChildren(p);
+            reRender(render.Component)(render.target)(render.Provider);
           });
         });
       }
