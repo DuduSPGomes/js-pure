@@ -1,7 +1,9 @@
+import { Props } from "./types.js";
+
 const R = (function () {
   let stateValues = []; // useState
   let useStateIndex = -1; // useState
-  let deps = []; // useEffect
+  let deps; // useEffect
   let reducerState; // useReducer
   let context; // createContext | useContext
   let childWithContext; // Provider children
@@ -51,6 +53,7 @@ const R = (function () {
         const newContext = { ...context, state: reducerState };
         context = newContext;
 
+        // RE-RENDER EXAMPLE
         // if (!Object.is(context, newContext)) {
         //   context = newContext;
         //   reRender(render.Component)(render.target)(render.Provider);
@@ -84,8 +87,8 @@ const R = (function () {
 
       return [stateValues[useStateIndex], setState];
     },
+    /** @param {Props} props */
     Component(props) {
-      /** @type {HTMLElement} */
       const element = document.createElement(props.tagName);
 
       if (props.attributes) {
