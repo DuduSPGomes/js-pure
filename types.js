@@ -3,26 +3,26 @@
  *    attribute: string
  * }}
  */
-const Attributes;
+let Attributes;
 
-/** 
+/**
  * @typedef {{
  *    type: string,
  *    listener: function(Event)
  * }}
  */
-const EventListeners;
+let EventListeners;
 
-/** 
+/**
  * @typedef {{
  *    tagName: !string,
  *    attributes: Array<Attributes>,
  *    textContent: string,
  *    children: Array<HTMLElement>,
  *    eventListeners: Array<EventListeners>
- * }} 
+ * }}
  */
-export const Props;
+export let Props;
 
 /**
  * @typedef {{
@@ -30,7 +30,7 @@ export const Props;
  *    payload: any
  * }}
  */
-export const Action;
+export let Action;
 
 /**
  * @typedef {{
@@ -38,7 +38,7 @@ export const Action;
  *    dispatch: function(Action)
  * }}
  */
-export const Context;
+export let Context;
 
 /**
  * @typedef {{
@@ -46,4 +46,4 @@ export const Context;
  *    inputValue: number
  * }}
  */
-export const InitialState;
+export let InitialState;
